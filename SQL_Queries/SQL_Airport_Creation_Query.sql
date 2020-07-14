@@ -59,10 +59,11 @@ SELECT * FROM Staff
 SELECT * FROM BookingDetails
 
 -- Renamed column in Flights table
-sp_rename 'Flights.FlightTime', 'FlightDuration';
+-- sp_rename 'Flights.FlightTime', 'FlightDuration';
 
-INSERT INTO Flights ("London", "2019/09/21", "13:23", "")
-VALUES (value1, value2, value3, ...); 
+-- insert into flights
+INSERT INTO Flights ()
+VALUES ("London", "2019/09/21", "13:23", 120, 300); 
 
 SP_HELP Flights
 

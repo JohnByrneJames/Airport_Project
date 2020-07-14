@@ -1,12 +1,14 @@
 # This class works out the algorithmic details that are required in the interface class, therefore the complexity
 # is hidden away from the user/ developer.
-class FlightFrontEnd:
+class FlightBackEnd:
     def __init__(self):
         # Class FlightFrontEnd
         pass
 
-    def __check_password(self, password):
+    def __check_password(self, username, password):
+        # Check username, get password in that row (if username not found return error)
         # Compare password against stored password (hash?)
+        # Will return False for invalid and True for a match
         pass
 
     def __get_flights(self):
