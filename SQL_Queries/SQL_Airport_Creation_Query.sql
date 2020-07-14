@@ -37,7 +37,7 @@ CREATE TABLE [Flights] (
   [Destination] VarChar(200),
   [DepartureDate] Date,
   [DepartureTime] DateTime,
-  [FlightTime] VarChar(200),
+  [FlightDuration] VarChar(200),
   [PassengerLimit] Int,
   PRIMARY KEY ([FlightID])
 );
@@ -51,8 +51,20 @@ CREATE TABLE [FlightStaff] (
 );
 
 
+
 SELECT * FROM FlightStaff
 SELECT * FROM Customers
 SELECT * FROM Flights
 SELECT * FROM Staff
 SELECT * FROM BookingDetails
+
+-- Renamed column in Flights table
+sp_rename 'Flights.FlightTime', 'FlightDuration';
+
+INSERT INTO Flights ("London", "2019/09/21", "13:23", "")
+VALUES (value1, value2, value3, ...); 
+
+SP_HELP Flights
+
+ALTER TABLE Flights
+ALTER COLUMN FlightDuration TIME; 
