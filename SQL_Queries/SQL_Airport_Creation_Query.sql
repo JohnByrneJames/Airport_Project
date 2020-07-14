@@ -56,3 +56,4 @@ SELECT * FROM Customers
 SELECT * FROM Flights
 SELECT * FROM Staff
 SELECT * FROM BookingDetails
+
