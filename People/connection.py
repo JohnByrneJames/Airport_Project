@@ -21,3 +21,6 @@ class Connection:
     def create_cursor(self):
         self.cursor = self.connection.cursor()
         return self.cursor
+
+    def use_database(self):
+        self.cursor.execute("use JMS_AirportDatabase")

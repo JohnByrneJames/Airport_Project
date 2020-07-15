@@ -1,4 +1,4 @@
-from connection import Connection
+from change_details import Change_details
 import os
 
 # Defining database username etc variables
@@ -13,5 +13,10 @@ connection_string = ('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';D
 
 # Calling functions
 # Creating class instance
-obj1 = Connection(connection_string)
+obj1 = Change_details(connection_string)
 obj1.create_connection()
+obj1.create_cursor()
+obj1.use_database()
+obj1.fetch_current_flight_details()
+obj1.show_flight_options()
+obj1.fetch_flightID()
