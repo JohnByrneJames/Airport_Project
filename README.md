@@ -1,11 +1,11 @@
 # Airport Project
 
-####This is the a project set over the course of 3 days. Using the assigned user-stories we are to complete a program that is capable of carrying out each of their requests, following a definition on done.
+#### This is the a project set over the course of 3 days. Using the assigned user-stories we are to complete a program that is capable of carrying out each of their requests, following a definition on done.
 
-###<div align="center" style="font-weight: bolder">The Team</div>
+### <div align="center" style="font-weight: bolder">The Team</div>
 
 | Name          | Position  | **X** |
-|---------------|-----------|---|
+|---------------|-----------|------|
 | **John Byrne**    | _Developer_ | :bug: |
 | **Sohaib Sohail** | _Developer_ | :truck: |
 | **Max Palmer**    | _Developer_ | :boom: |
@@ -20,7 +20,7 @@ so that I can add them to the flight.
 extend their departure date etc. Use a password. 
 - [ ] As an airport assistant, I want to be able to add passengers to flight_trip, so that I
 can sell tickets.
-- [ ] As a flight attendeant I want to generate a flight attendees list.
+- [ ] As a flight attendant I want to generate a flight attendees list.
 
 **Our Kanban Board**
 
