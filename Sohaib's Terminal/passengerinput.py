@@ -5,25 +5,22 @@ from datetime import datetime
 
 class Passengers():
 
-    def __init__(self):
-        self.firstname_input = None
-        self.surname_input = None
-        self.dateofbirth_input = None
-        self.passportnumber_input = None
-
-    def passenger_input(self):
+    def __init__(self, cursor):
         self.firstname_input = (input(str(print("What is your first name?"))).title())
         self.surname_input = (input(str(print("What is your surname?"))).title())
         self.dateofbirth_input = (input(print("What is your date of birth? *Please enter the date in this format: YYYY-MM-DD*")))
+        self.passportnumber_input = (input(print("What is your passport number?")))
+        self.cursor = cursor
 
+    def dateofbirth_test(self):
         try:
             datetime.strptime(self.dateofbirth_input, '%Y-%m-%d')
             print("This is the correct date string format.")
         except ValueError:
             print("This is the incorrect date string format. It should be YYYY-MM-DD")
 
-        self.passportnumber_input = (input(print("What is your passport number?")))
 
+    def passportnum_test(self):
         try:
             if len(self.passportnumber_input) == 9 and type(self.passportnumber_input) == int:
                 print("Successfully accepted your passport number")
@@ -32,9 +29,23 @@ class Passengers():
         else:
             print("Sorry, you have not entered the number correctly")
 
-        sql_query = ("INSERT INTO Customers(FirstName, LastName, DateOfBirth) VALUES(" + self.firstname_input + self.surname_input + self.dateofbirth_input + ")")
+    def input_into_SQL(self):
+
+        sql_query = ("INSERT INTO Customers(FirstName, LastName, DateOfBirth) VALUES(" + str(self.firstname_input) + str(self.surname_input) + str(self.dateofbirth_input) + ")")
+
+        sql_query2 = ("INSERT INTO BookingDetails(PassportNum) VALUES(" + self.passportnumber_input + ")")
 
         self.cursor.execute(sql_query)
+        self.cursor.execute(sql_query2)
+        self.cursor.commit()
+
+    def passenger_input_in_flights(self):
+
+        sql_query3 = ("INSERT INTO BookingDetails(FirstName, LastName, PassportNum, DateOfBirth) VALUES(" + str(self.firstname_input) + str(self.surname_input) + (self.passportnumber_input) + self.dateofbirth_input + ")") #This is to insert data into the flights information
+
+        self.cursor.execute(sql_query3)
+
+        
 
 
 
