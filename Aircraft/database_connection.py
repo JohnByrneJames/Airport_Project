@@ -1,5 +1,6 @@
 import pyodbc
 
+
 class DatabaseConnector:
     # Essential attributes needed by database connector to make a connection {Server, Database, Username, Password}
     # Connection_string formulated using credentials and then a cursor that is used to make the retrieval of data from
@@ -9,7 +10,7 @@ class DatabaseConnector:
     __username = None  # username to access database (Database Admin)
     __password = None  # password to access database (Database Admin)
     __cursor = None  # cursor to access database
-    __connection_string = None # Store connection string for integrity and future storage
+    __connection_string = None  # Store connection string for integrity and future storage
     retry_count = 0  # retry count
 
     def __init__(self, server, database, username, password):
@@ -22,12 +23,12 @@ class DatabaseConnector:
     def establish_connection(self):  # establishing connection
         # Create, store and connect to the database using this connection string
         connection_string = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=" \
-                           + self.__server + ";DATABASE=" + self.__database + \
-                           ";UID=" + self.__username + ";PWD=" + self.__password
+                            + self.__server + ";DATABASE=" + self.__database + \
+                            ";UID=" + self.__username + ";PWD=" + self.__password
         self.__connection_string = connection_string
 
         try:
-            with pyodbc.connect(self.__connection_string, timeout=10) as connection:  # Connection to database
+            with pyodbc.connect(self.__connection_string, timeout=5) as connection:  # Connection to database
                 # Success and connection has been made
                 print("Connection successfully established..!")  # Connection has been established, continue.
         except (ConnectionError, pyodbc.OperationalError, pyodbc.DatabaseError):  # Catch common errors faced in pyodbc
@@ -38,7 +39,7 @@ class DatabaseConnector:
             print("Invalid connection to DB interface")
             print("\nTrying again...")  # Try reconnecting to the database again.
             if self.retry_count == 3:  # After 2 attempts exit
-                return "Error encountered"
+                exit("Error encountered")
             self.retry_count += 1  # Increase the retry timer by 1
             self.establish_connection()  # retry establishing connection by calling itself
         except Exception:  # base Exception makes this fall proof
@@ -46,5 +47,5 @@ class DatabaseConnector:
             return "There was an error that occurred during the connection attempt..."
         else:
             # Return the connection, the cursor is a control structure
-            return connection.cursor()
-
+            cursor = connection.cursor()
+            return cursor

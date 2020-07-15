@@ -42,7 +42,7 @@ class FlightFrontEnd(FlightBackEnd):
                 self.__password = input(str("\nPassword :"))
                 # Perform check of username / password simultaneously
                 # Will return False if incorrect username or password (remains anonymous as to what)
-                if not self.__check_password(self.__username, self.__password):  # If true raise Error
+                if not self.__check_password(self.__cursor, self.__username, self.__password):  # If true raise Error
                     raise ValueError("\n⚠ Password or Username is incorrect ⚠")
             except ValueError as e:
                 print(e)
@@ -57,7 +57,7 @@ class FlightFrontEnd(FlightBackEnd):
 
         # If user has failed to login 3 times, then
         if user_login_attempts == 3:
-            raise ValueError("\n⚠ 3 Login attempts have failed, exiting... ⚠")
+            exit("\n⚠ 3 Login attempts have failed, exiting... ⚠")
 
     @staticmethod
     def _show_current_flights():

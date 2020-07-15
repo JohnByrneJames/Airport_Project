@@ -1,15 +1,29 @@
 # This class works out the algorithmic details that are required in the interface class, therefore the complexity
 # is hidden away from the user/ developer.
 class FlightBackEnd:
+    password_retrieved = None
+    retrieved_username = None
+
     def __init__(self):
         # Class FlightFrontEnd
         pass
 
-    def __check_password(self, username, password):
-        # Check username, get password in that row (if username not found return error)
-        # Compare password against stored password (hash?)
-        # Will return False for invalid and True for a match
-        pass
+    def __check_password(self, cursor, username, password):
+        try:
+            sql_query = 'SELECT * FROM Staff WHERE Username LIKE ?'
+            rows = cursor.execute(sql_query, username)
+            for row in rows:
+                self.password_retrieved = row.Password  # store password in extracted rows
+                self.retrieved_username = row.Username
+
+            if username != self.retrieved_username:
+                raise ValueError
+            elif password != self.password_retrieved:
+                raise ValueError  # Raise error that password is incorrect
+        except ValueError as e:
+            return False  # Password not a match so return False
+        else:
+            return True  # Password match so return True
 
     def __get_flights(self):
         # >>> Check if None in flights -> Return "There are no flights"
