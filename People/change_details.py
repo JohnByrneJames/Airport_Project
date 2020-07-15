@@ -11,7 +11,8 @@ class Change_details(Connection):
     def fetch_current_flight_details(self):
         # Sequel query connecting booking details to flights
         # Use preset variable with person from list
-        booking_to_check = "1"
+        self.booking_to_check = "1"
+        # Fetching current flight details of customer based on Ticket ID
         sql_query = ("USE JMS_Airport\nDatabaseSELECT * FROM BookingDetails BD INNER JOIN Flights F ON BD.FlightID = F.FlightIDWHERE BD.TicketID =?", booking_to_check)
         self.cursor.execute(sql_query)
         return self.cursor
@@ -21,10 +22,20 @@ class Change_details(Connection):
         for row in rows:
             print("Your current departure date is: ", row.DepatureDate)
 
+    def show_flight_options(self):
+        sql_query = ("SELECT * FROM BookingDetails BD RIGHT JOIN Flights FON BD.FlightID = F.FlightIDWHERE TicketID !=?", self.booking_to_check)
+        self.cursor.execute(sql_query)
+        i = 0
+        rows = self.cursor.fetchall
+        for row in rows:
+            i += 1
+            print(i, ". ", "Departure date of: ", row.DepatureDate)
+
+
     def change_flight_details(self):
         # Change flight ID to preset variable
         flight_change = "1"
-        sql_query =
+        sql_query = "te"
 
 
 # Password function
