@@ -1,12 +1,15 @@
 from connection import Connection
 from datetime import *
 
+# Inheriting the connection class to enable connection
 class Add_person(Connection):
 
     def __init__(self, connection_string):
         # Inheriting connection string from parent class
         super().__init__(connection_string)
+        # Defining empty variables for later
         self.ticket_price = 3.00
+        self.total_revenue = 0.00
 
     def flight_choice_country(self):
         # List countries
@@ -49,14 +52,19 @@ class Add_person(Connection):
     def check_passenger_count(self):
         # Get amount of passengers per plane
         sql_query = "Select COUNT(*) FROM BookingDetails WHERE FlightID = ? "
+        # Using wildcards (?s) to fill in placeholders with variables specified in execute command
         self.cursor.execute(sql_query, self.FlightID)
+        # Fetching all rows then printing to get count of passengers per plane
         rows = self.cursor.fetchall()
         for row in rows:
             self.current_passenger_count = row[0]
+        # Command for testing - delete later
         print(self.current_passenger_count)
 
     def capacity_avaibility(self):
+        # Calculating and creating spaces remaining variable
         self.spaces_remaining = int(self.flight_capacity) - int(self.current_passenger_count)
+        # Making sure that full planes are not available to book on
         if self.spaces_remaining < 0:
             print("There is no more availability on this flight.")
         else:
@@ -64,13 +72,28 @@ class Add_person(Connection):
 
     def add_person(self):
         # Age limiter - baby age means no seat
-        buying_tickets = int(input("How many people are you buying tickets for?\n"))
-        if buying_tickets > self.spaces_remaining:
+        # Find out how many tickets are being bough
+        self.buying_tickets = int(input("How many people are you buying tickets for?\n"))
+        # Making sure that not too many tickets are sold
+        if self.buying_tickets > self.spaces_remaining:
+            pass
+        else:
+            print("There is only {} spaces left, so {} tickets cannot be purchased.". format(self.spaces_remaining, self.buying_tickets))
 
-        # Input data into booking details page
-
+        # Input data into booking details page,using while loop to allow multiple record entry
+        while True:
+            user_input = ("Would you like to add more booking details. Y or N")
+            if user_input.upper() == "Y":
+                # Enter record
+                pass
+            elif user_input.upper() == "N":
+                break
         # Print message confirming person added in
-        pass
+        print("Details for {} have been inserted into the database!")
 
     def ticket_sale(self):
-        pass
+        # Calculating revenue
+        revenue = self.buying_tickets * self.ticket_price
+        # Adding revenue to total revenue and printing it
+        self.total_revenue += revenue
+        print("Total revenue so far is £", self.total_revenue)

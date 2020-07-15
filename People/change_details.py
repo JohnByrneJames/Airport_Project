@@ -5,6 +5,7 @@ from connection import Connection
 
 class Change_details(Connection):
 
+    # Initialising class
     def __init__(self, connection_string):
         # Inherting connection string from parent class
         super().__init__(connection_string)
