@@ -20,7 +20,7 @@ class FlightBackEnd:
                 raise ValueError
             elif password != self.password_retrieved:
                 raise ValueError  # Raise error that password is incorrect
-        except ValueError as e:
+        except ValueError:
             return False  # Password not a match so return False
         else:
             return True  # Password match so return True
@@ -31,7 +31,7 @@ class FlightBackEnd:
         # destination, departure date and time, Flight time,
         pass
 
-    def __create_new_flight(self, destination, departure_date, departure_time, flight_duration, passenger_limit):
+    def __create_new_flight(self, flight_dictionary):
         # If the checks have been successfully passed then create the flight in the database using parameters received
         # work out landing time via (departure_time + flight_duration = landing_time)
         pass
