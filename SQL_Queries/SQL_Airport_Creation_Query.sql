@@ -1,3 +1,10 @@
+DROP DATABASE JMS_AirportDatabase
+
+SL_HELP 
+
+CREATE DATABASE JMS_AirportDatabase
+USE JMS_AirportDatabase
+
 SP_HELP Customers
 
 CREATE TABLE [BookingDetails] (
@@ -15,13 +22,11 @@ CREATE TABLE [BookingDetails] (
 
 CREATE TABLE [Staff] (
   [StaffID] Int IDENTITY NOT NULL,
-  [FlightID] Int NOT NULL,
   [Name] VarChar(200) NOT NULL,
   [Position] VarChar(100) NOT NULL,
   [Username] VarChar(100) NOT NULL,
   [Password] VarChar(100) NOT NULL,
-  PRIMARY KEY ([StaffID]),
-  FOREIGN KEY ([FlightID]) REFERENCES Flights(FlightID)
+  PRIMARY KEY ([StaffID])
 );
 
 CREATE TABLE [Customers] (
@@ -33,14 +38,20 @@ CREATE TABLE [Customers] (
 );
 
 CREATE TABLE [Flights] (
-  [FlightID] Int,
-  [Destination] VarChar(200),
-  [DepartureDate] Date,
+  [FlightID] Int IDENTITY NOT NULL,
+  [Destination] VarChar(200) NOT NULL,
+  [DepartureDate] Date NOT NULL,
   [DepartureTime] DateTime,
-  [FlightTime] VarChar(200),
-  [PassengerLimit] Int,
+  [FlightDuration] Int NOT NULL,
+  [PassengerLimit] Int NOT NULL,
   PRIMARY KEY ([FlightID])
 );
+
+DROP TABLE Flights
+DROP TABLE Staff
+DROP TABLE BookingDetails
+DROP TABLE Customers
+DROP TABLE FlightStaff
 
 CREATE TABLE [FlightStaff] (
   [FlightID] Int NOT NULL,
@@ -50,10 +61,8 @@ CREATE TABLE [FlightStaff] (
   FOREIGN KEY (StaffID) REFERENCES Staff (StaffID)
 );
 
-
 SELECT * FROM FlightStaff
 SELECT * FROM Customers
 SELECT * FROM Flights
 SELECT * FROM Staff
 SELECT * FROM BookingDetails
-
