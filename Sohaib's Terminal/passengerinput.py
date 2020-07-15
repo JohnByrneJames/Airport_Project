@@ -44,6 +44,7 @@ class Passengers():
         sql_query3 = ("INSERT INTO BookingDetails(FirstName, LastName, PassportNum, DateOfBirth) VALUES(" + str(self.firstname_input) + str(self.surname_input) + (self.passportnumber_input) + self.dateofbirth_input + ")") #This is to insert data into the flights information
 
         self.cursor.execute(sql_query3)
+        self.cursor.commit()
 
         
 

@@ -1,5 +1,5 @@
 from passengerinput import Passengers
-from new_connection import Connections
+from new_connection import databaseconnection
 
 cursor = databaseconnection()
 object = cursor.Passengers(databaseconnection())
