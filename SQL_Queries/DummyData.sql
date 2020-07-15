@@ -27,8 +27,8 @@ VALUES
 (5, 3, 'Bob', 'Lonely', '120921', '1987/07/05'),
 (5, 4, 'Ali', 'Johnson', '136542', '1995/02/05'),
 (6, 4, 'Theresa', 'May', '123456', '1990/02/06'),
-(7, 4, 'Ellie', 'Johnson', '123456', '2005/02/06'),
-(7, 4, 'Eleanor', 'Johnson', '123456', '2005/02/06')
+(6, 4, 'Ellie', 'Johnson', '123456', '2005/02/06'),
+(6, 4, 'Eleanor', 'Johnson', '123456', '2005/02/06')
 
 SELECT * FROM Customers
 SP_HELP Customers
