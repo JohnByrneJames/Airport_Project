@@ -66,34 +66,3 @@ SELECT * FROM Customers
 SELECT * FROM Flights
 SELECT * FROM Staff
 SELECT * FROM BookingDetails
-
--- Renamed column in Flights table
--- sp_rename 'Flights.FlightTime', 'FlightDuration';
-
--- insert into flights
-INSERT INTO Flights(Destination, DepartureDate, DepartureTime, FlightDuration, PassengerLimit)
-VALUES ('London', '2019/09/21', '13:23', 120, 300);
-
--- insert into staf
-INSERT INTO Staff(Name, Position, Username, Password)
-VALUES('Robert', 'Crew member', 'Ro8912', '123')
-
-INSERT INTO Staff(Name, Position, Username, Password)
-VALUES('Alex', 'Crew member', 'Al1566', '123'),
-('Rachel', 'Crew member', 'Ra3882', '123'),
-('Michel', 'Crew member', 'Mi0931', '123')
-
-SELECT f.Username, f.Password
-FROM Staff f
-WHERE f.Username LIKE 'Al1566'
-
-SELECT * FROM Flights
-
-SP_HELP Flights
-SP_HELP Staff
-
-ALTER TABLE Flights
-ALTER COLUMN DepartureTime time; 
-
-ALTER TABLE Staff
-DROP COLUMN FlightID
