@@ -18,22 +18,25 @@ class Change_details(Connection):
         # Excecuting query and printing result
         rows = self.cursor.execute(sql_query)
         for row in rows:
-            print("Your current departure date is: ", row.DepartureDate, "\nYour destination is: ", row.Destination)
+            print("The current departure date is: ", row.DepartureDate, "\nThe destination is: ", row.Destination)
             self.current_departure_date = row.DepartureDate
             self.destination = row.Destination
+            self.current_flight = row.FlightID
 
     # Method to get possible flight options
     def show_flight_options(self):
         # SQl query using current booking and desination to filter results
-        sql_query = ('SELECT * FROM BookingDetails BD LEFT JOIN Flights F ON BD.FlightID = F.FlightID WHERE F.Destination = \'' + self.destination + '\' and BD.TicketID != ' + self.current_booking)
+        sql_query = ('SELECT DISTINCT DepartureDate FROM BookingDetails BD LEFT JOIN Flights F ON BD.FlightID = F.FlightID WHERE F.Destination = \'' + self.destination + '\' and F.FlightID != ' + str(self.current_flight))
         # Executing query and printing result
         rows = self.cursor.execute(sql_query)
-        for row in rows:
-            # Printing flights available or letting user no of availability
-            if row[0] is None:
-                print("No alternative flights sorry")
-            else:
-                print("Which departure date would you like to change to?")
+        # Printing flights available or letting user know of availability
+        if rows.rowcount == 0:
+            print("No alternative flights sorry")
+            # Using return to end function
+            return 0
+        else:
+            print("Which departure date would you like to change to?")
+            for row in rows:
                 print("Possible departure date of:", row.DepartureDate)
 
     # Get flight ID to change, for where departure date is x
