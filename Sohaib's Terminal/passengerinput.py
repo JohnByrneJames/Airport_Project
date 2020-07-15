@@ -14,18 +14,18 @@ class Passengers():
     def passenger_input(self):
         self.firstname_input = (input(str(print("What is your first name?"))).title())
         self.surname_input = (input(str(print("What is your surname?"))).title())
-        self.dateofbirth_input = (input(print("What is your date of birth? *Please enter the date in this format: 1982-04-08")))
+        self.dateofbirth_input = (input(print("What is your date of birth? *Please enter the date in this format: YYYY-MM-DD*")))
 
         try:
-            datetime.datetime.strptime(self.dateofbirth_input, format)
+            datetime.strptime(self.dateofbirth_input, '%Y-%m-%d')
             print("This is the correct date string format.")
         except ValueError:
             print("This is the incorrect date string format. It should be YYYY-MM-DD")
 
-        self.passportnumber_input = (input(int(print("What is your passport number?"))))
+        self.passportnumber_input = (input(print("What is your passport number?")))
 
         try:
-            if len(self.passportnumber_input) == 9:
+            if len(self.passportnumber_input) == 9 and type(self.passportnumber_input) == int:
                 print("Successfully accepted your passport number")
         except ValueError:
             print("Please enter a number")
