@@ -1,14 +1,12 @@
-from connection import Connection
-
 from datetime import *
 
 # Inheriting the connection class to enable connection
 
-class Add_person(Connection):
+class Add_person():
 
-    def __init__(self, connection_string):
-        # Inheriting connection string from parent class
-        super().__init__(connection_string)
+    def __init__(self, cursor):
+        # Creating cursor class object
+        self.cursor = cursor
         # Defining variables for later
         self.ticket_price = 3.00
         self.total_revenue = 0.00
@@ -51,7 +49,7 @@ class Add_person(Connection):
         for row in rows:
             self.FlightID = row.FlightID
             self.flight_capacity = row.PassengerLimit
-        print(self.flight_capacity)
+        print("The flight capacity for that flight is:", self.flight_capacity)
 
     def check_passenger_count(self):
         # Get amount of passengers per plane
@@ -63,7 +61,7 @@ class Add_person(Connection):
         for row in rows:
             self.current_passenger_count = row[0]
         # Command for testing - delete later
-        print(self.current_passenger_count)
+        print("The current passenger count is;", self.current_passenger_count)
 
     def capacity_avaibility(self):
         # Calculating and creating spaces remaining variable
