@@ -13,6 +13,18 @@ from string import ascii_letters, digits  # Check for special characters
 # - FlightDuration
 # - PassengerLimit
 
+# User Story
+# As an airport assistant I want to be able to generate a flight_attendees_list that lists passenger names and passports
+# to check identity.
+
+# To do this, the booking_details table needs to return:
+# - First Name
+# - Last Name
+# - Passport Number
+
+# Perhaps date of birth later on
+# - Date of Birth
+
 class FlightFrontEnd(FlightBackEnd):
     __cursor = None
     # This will be used to verify the identity of the employee trying to log in
@@ -54,7 +66,7 @@ class FlightFrontEnd(FlightBackEnd):
                 exit("Exiting! Please retry from the main menu.")  # This exits with a message to the user
             else:  # The user has successfully logged in as no exceptions were raised
                 print("Welcome! " + self.__username)
-                self.__add_flight()
+                self.__user_interface()
 
         # If user has failed to login 3 times, then
         if user_login_attempts == 3:
@@ -67,8 +79,75 @@ class FlightFrontEnd(FlightBackEnd):
         return self._get_flights(self.__cursor)  # Load flights
 
     def __add_flight(self):
+        try:  # Create Flight
+            destination = input("Whats is this flights destination? : ")
+            if self.check_if_exit(destination):  # Allows exiting of program at any time with 'e'
+                return False
+            departure_date = input("What is the departure date of this flight? [E.g. 2018-03-19] : ")
+            if self.check_if_exit(destination):  # Allows exiting of program at any time with 'e'
+                return False
+            departure_time = input("What is the departure time of this flight? [E.g. 13:00:00] : ")
+            if self.check_if_exit(destination):  # Allows exiting of program at any time with 'e'
+                return False
+            flight_duration = input("Whats the flight duration? [E.g. 60 = 1 hour] : ")
+            if self.check_if_exit(destination):  # Allows exiting of program at any time with 'e'
+                return False
+            passenger_limit = input("What is the passenger_limit? [E.g. 300] : ")
+            if self.check_if_exit(destination):  # Allows exiting of program at any time with 'e'
+                return False
+
+            # Carry out checks on information - raise ValueError if something invalid
+            if any(map(str.isdigit, destination)):  # Returns True if destination contains numbers (not allowed)
+                raise ValueError("\n⚠ A Destination cannot contain a number, please retry ⚠")
+            elif len(departure_date) != 10:
+                raise ValueError("\n⚠ Your date isn't in the format YYYY-MM-DD, please retry ⚠")
+            elif len(departure_time) != 8:
+                raise ValueError("\n⚠ Your date isn't in the format HH:MM:SS, please retry ⚠")
+            elif not any(map(str.isdigit, flight_duration)):  # This contains a letter, should only be numbers
+                raise ValueError("\n⚠ Your duration contains a letter, use the format 60 / "
+                                 "1 hour, please retry ⚠")
+            elif not any(map(str.isdigit, passenger_limit)):  # This contains a letter, should only be numbers
+                raise ValueError("\n⚠ Your passenger limit contains letters, use numbers only, please retry ⚠")
+
+            # Present the details that have been given by the employee.
+            while True:
+                final_check = input("\nIs this correct? [Y] or [N]\n"
+                                    "Destination :" + destination + "\n"
+                                    "Departure Date :" + departure_date + "\n"
+                                    "Departure time :" + departure_time + "\n"
+                                    "Flight Duration :" + flight_duration + "\n"
+                                    "Passenger Limit :" + passenger_limit + "\n")
+
+                if final_check.lower() == 'y':
+                    print("\nAdding the flight to the list of existing flights...")
+                    break  # break out internal loop
+                if final_check.lower() == 'n':
+                    print("\nOkay, Restarting...")
+                    self.__add_flight()  # Restarts method
+                else:
+                    print("\nDid not recognise that response.")
+                    continue  # Asks the questions again
+        except ValueError as e:
+            print(e)
+            return False
+        except Exception:
+            print("Sorry! an unexpected error occurred, please try again.")
+            return False
+        else:
+            # The input didn't hit any exception nets and is moving on now
+            # Create a dictionary with information, make necessary conversions
+            flight_dict = {"Destination": destination, "Departure_date": departure_date,
+                           "Departure_time": departure_time, "Flight_duration": int(flight_duration),
+                           "Passenger_limit": int(passenger_limit)}
+            # If no exceptions are raised -- create flight
+            # Send information to BackEnd to store in database
+            self.create_new_flight(flight_dict, self.__cursor)
+            return True
+
+    def __user_interface(self):
         print("\nWelcome! What would you like to do")
-        help_message = "\nCreate a new flight [c]\nView all current flights [f]\nRecall Help dialog [h]\nExit at any time with [e]:"
+        help_message = "\nCreate a new flight [c]\nView all current flights [f]\nRecall Help dialog [h]" \
+                       "\nExit at any time with [e]:"
         print(help_message)
         exit_code_entered = False  # Boolean that handles whether or not the user has exited the loop
         while not exit_code_entered:
@@ -78,69 +157,11 @@ class FlightFrontEnd(FlightBackEnd):
             # future) Flight time (algorithm to work out times between departure time and landing time)
             if users_input.lower() == "c":
                 print("\nCreating a new flight...")
-                try:  # Create Flight
-                    destination = input("Whats is this flights destination? : ")
-                    if self.check_if_exit(destination):  # Allows exiting of program at any time with 'e'
-                        continue
-                    departure_date = input("What is the departure date of this flight? [E.g. 2018-03-19] : ")
-                    if self.check_if_exit(destination):  # Allows exiting of program at any time with 'e'
-                        continue
-                    departure_time = input("What is the departure time of this flight? [E.g. 13:00:00] : ")
-                    if self.check_if_exit(destination):  # Allows exiting of program at any time with 'e'
-                        continue
-                    flight_duration = input("Whats the flight duration? [E.g. 60 = 1 hour] : ")
-                    if self.check_if_exit(destination):  # Allows exiting of program at any time with 'e'
-                        continue
-                    passenger_limit = input("What is the passenger_limit? [E.g. 300] : ")
-                    if self.check_if_exit(destination):  # Allows exiting of program at any time with 'e'
-                        continue
-
-                    # Carry out checks on information - raise ValueError if something invalid
-                    if any(map(str.isdigit, destination)):  # Returns True if destination contains numbers (not allowed)
-                        raise ValueError("\n⚠ A Destination cannot contain a number, please retry ⚠")
-                    elif len(departure_date) != 10:
-                        raise ValueError("\n⚠ Your date isn't in the format YYYY-MM-DD, please retry ⚠")
-                    elif len(departure_time) != 8:
-                        raise ValueError("\n⚠ Your date isn't in the format HH:MM:SS, please retry ⚠")
-                    elif not any(map(str.isdigit, flight_duration)):  # This contains a letter, should only be numbers
-                        raise ValueError("\n⚠ Your duration contains a letter, use the format 60 / "
-                                         "1 hour, please retry ⚠")
-                    elif not any(map(str.isdigit, passenger_limit)):  # This contains a letter, should only be numbers
-                        raise ValueError("\n⚠ Your passenger limit contains letters, use numbers only, please retry ⚠")
-
-                    # Present the details that have been given by the employee.
-                    while True:
-                        final_check = input("\nIs this correct? [Y] or [N]\n"
-                                            "Destination :" + destination + "\n"
-                                            "Departure Date :" + departure_date + "\n"
-                                            "Departure time :" + departure_time + "\n"
-                                            "Flight Duration :" + flight_duration + "\n"
-                                            "Passenger Limit :" + passenger_limit + "\n")
-
-                        if final_check.lower() == 'y':
-                            print("\nAdding the flight to the list of existing flights...")
-                            break  # break out internal loop
-                        if final_check.lower() == 'n':
-                            print("\nOkay, Restarting...")
-                            self.__add_flight()  # Restarts method
-                        else:
-                            print("\nDid not recognise that response.")
-                            continue  # Asks the questions again
-                except ValueError as e:
-                    print(e)
-                    continue  # return the start
-                except Exception:
-                    print("Sorry! an unexpected error occurred, please try again.")
-                    continue
+                if self.__add_flight():  # Returns True if success and False if failure
+                    print("\nSuccess!\n")
                 else:
-                    # The input didn't hit any exception nets and is moving on now
-                    # Create a dictionary with information, make necessary conversions
-                    flight_dict = {"Destination": destination, "Departure_date": departure_date,
-                                   "Departure_time": departure_time, "Flight_duration": int(flight_duration),
-                                   "Passenger_limit": int(passenger_limit)}
-                    # If no exceptions are raised -- create flight
-                    # Send information to BackEnd to store in database
-                    self.create_new_flight(flight_dict, self.__cursor)
+                    print("\nRestarting\n")
+                    continue  # Restart interface
             elif users_input.lower() == "h":
                 print(help_message)
             elif users_input.lower() == "f":
@@ -160,6 +181,10 @@ class FlightFrontEnd(FlightBackEnd):
         # To Do List:
         # Set Passenger Limit (Not above models seat limit)
         # Later ( Assign staff to flight - List of available staff and assign them)
+
+    def __generate_flight_attendees_list(self):
+
+        pass
 
     @staticmethod
     def check_if_exit(user_input):

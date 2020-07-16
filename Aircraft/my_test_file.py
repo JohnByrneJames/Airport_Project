@@ -1,10 +1,5 @@
-from string import ascii_letters, digits  # Check for special characters
-from database_connection import DatabaseConnector
-import uuid
-import hashlib
+from Database_Connection.database_connection import DatabaseConnector
 import os
-import pyodbc
-import pandas as pd
 
 database_link = DatabaseConnector("databases.spartaglobal.academy", "JMS_AirportDatabase",
                                   os.environ.get("db_username"),

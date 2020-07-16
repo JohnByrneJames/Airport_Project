@@ -1,5 +1,7 @@
+# To use this database connector you need to first import this class, it will return your connection in the form of a
+# cursor. This can be used to work in other classes, as long as you pass them in as arguments of the classes
+# initialisation method.
 import pyodbc
-
 
 class DatabaseConnector:
     # Essential attributes needed by database connector to make a connection {Server, Database, Username, Password}
