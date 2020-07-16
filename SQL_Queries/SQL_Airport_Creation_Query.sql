@@ -71,6 +71,7 @@ SELECT * FROM Staff
 SELECT * FROM BookingDetails
 
 SP_HELP Staff
+SP_HELP Customers
 
 INSERT INTO Staff(Staff.Name, Staff.Position, Staff.Username, Staff.Password)
 VALUES('John', 'Crew-Member', 'J970', '123');

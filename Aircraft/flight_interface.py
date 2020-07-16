@@ -60,16 +60,15 @@ class FlightFrontEnd(FlightBackEnd):
         if user_login_attempts == 3:
             exit("\n⚠ 3 Login attempts have failed, exiting... ⚠")
 
-    @staticmethod
-    def _show_current_flights():
+    def _show_current_flights(self):
         # Welcome! Here are the current flights -->
         # Get flights from database and display them
         # What would you like to do?
-        pass
+        return self._get_flights(self.__cursor)  # Load flights
 
     def __add_flight(self):
         print("\nWelcome! What would you like to do")
-        help_message = "\nCreate a new flight [c]\nRecall Help dialog [h]\nExit at any time with [e]:"
+        help_message = "\nCreate a new flight [c]\nView all current flights [f]\nRecall Help dialog [h]\nExit at any time with [e]:"
         print(help_message)
         exit_code_entered = False  # Boolean that handles whether or not the user has exited the loop
         while not exit_code_entered:
@@ -144,6 +143,15 @@ class FlightFrontEnd(FlightBackEnd):
                     self.create_new_flight(flight_dict, self.__cursor)
             elif users_input.lower() == "h":
                 print(help_message)
+            elif users_input.lower() == "f":
+                print("\nLoading flights now..")
+                if self._show_current_flights():  # If true is returned successfully loaded
+                    print("\nSuccessfully loaded flight information")
+                    continue
+                else:  # Returns false the flight information couldn't be loaded
+                    print("\nSorry! an error occurred, restarting interface...")
+                    continue
+
             elif users_input.lower() == "e":
                 print("\nExiting System...")
                 exit_code_entered = True  # Change exit code to True as 'e' was entered, E.G (will break while loop)
