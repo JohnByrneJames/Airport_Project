@@ -1,4 +1,7 @@
 from datetime import *
+import sys
+sys.path.insert(1, "C:/Users/Maximilian Palmer/PycharmProjects/Airport_project/Sohaib's Terminal")
+from passengerinput import *
 
 # Inheriting the connection class to enable connection
 
@@ -13,7 +16,7 @@ class Add_person():
 
     def flight_choice_country(self):
         # List countries
-        sql_query = "SELECT * FROM Flights"
+        sql_query = "SELECT DISTINCT Destination FROM Flights"
         rows = self.cursor.execute(sql_query)
         # Empty list to append to
         countries = []
@@ -21,14 +24,23 @@ class Add_person():
         for row in rows:
             countries.append(row.Destination)
         print(countries)
-        # User input to select country
-        self.selected_country = input("Select a country from the above list, and enter below. Please keep the same formatting.\n ")
+        bool = True
+        while bool == True:
+            # User input to select country
+            self.selected_country = input("Select a country from the above list, and enter below. Please keep the same formatting.\n ")
+            try:
+                if self.selected_country not in countries:
+                    raise ValueError
+            except ValueError:
+                print("That is an invalid selection")
+            else:
+                bool = False
 
     def flight_choice_departure(self):
         # Calling previous function
         self.flight_choice_country()
         # List countries
-        sql_query = ("SELECT * FROM Flights WHERE Destination = '"+ self.selected_country+ "'")
+        sql_query = ("SELECT DISTINCT DepartureDate FROM Flights WHERE Destination = '"+ self.selected_country+ "'")
         rows = self.cursor.execute(sql_query)
         # Empty list to append to
         dates = []
@@ -37,8 +49,18 @@ class Add_person():
             x = row.DepartureDate
             dates.append(x.strftime("%Y/%m/%d"))
         print(dates)
-        # User input to select country
-        self.selected_departure_date = input("Select a departure date from the above list, and enter below. Please keep the same formatting.\n ")
+        bool = True
+        while bool == True:
+            # User input to select departure date
+            self.selected_departure_date = input("Select a departure date from the above list, and enter below. Please keep the same formatting.\n ")
+            try:
+                if str(self.selected_departure_date) not in dates:
+                    raise ValueError
+            except ValueError:
+                print("That is an invalid selection")
+            else:
+                bool = False
+
 
     def check_flight_capacity(self):
         # Get capacity of flight
@@ -49,7 +71,7 @@ class Add_person():
         for row in rows:
             self.FlightID = row.FlightID
             self.flight_capacity = row.PassengerLimit
-        print("The flight capacity for that flight is:", self.flight_capacity)
+        print("The flight capacity for  flight {} is:".format(self.FlightID), self.flight_capacity)
 
     def check_passenger_count(self):
         # Get amount of passengers per plane
@@ -61,9 +83,9 @@ class Add_person():
         for row in rows:
             self.current_passenger_count = row[0]
         # Command for testing - delete later
-        print("The current passenger count is;", self.current_passenger_count)
+        print("The current passenger count is:", self.current_passenger_count)
 
-    def capacity_avaibility(self):
+    def capacity_availability(self):
         # Calculating and creating spaces remaining variable
         self.spaces_remaining = int(self.flight_capacity) - int(self.current_passenger_count)
         # Making sure that full planes are not available to book on
@@ -77,23 +99,24 @@ class Add_person():
         # Find out how many tickets are being bought
         self.buying_tickets = int(input("How many people are you buying tickets for?\n"))
         # Making sure that not too many tickets are sold
-        if self.buying_tickets > self.spaces_remaining:
-            pass
+        # Limit to 5 for looping reasons?
+        if self.buying_tickets > int(self.spaces_remaining):
+            print("There is only {} spaces left, so {} tickets cannot be purchased.".format(self.spaces_remaining,                                                                              self.buying_tickets))
         else:
-            print("There is only {} spaces left, so {} tickets cannot be purchased.". format(self.spaces_remaining, self.buying_tickets))
+            print("There is enough spaces")
         # Input data into booking details page,using while loop to allow multiple record entry
         while True:
-            user_input = ("Would you like to add more booking details. Y or N")
+            user_input = input("Would you like to add booking details. Y or N\n")
             if user_input.upper() == "Y":
-                # Call sohaib user story to insert customer details
-                # sql_query = ("")
-                # self.cursor.execute(sql_query, )
-                # self.cursor.commit()
-                pass
+                obj1 = Passengers(self.cursor)
+                obj1.customer_input()
+                obj1.choice_input(self.selected_country, self.FlightID)
             elif user_input.upper() == "N":
+                print("Thank you for your input, have a great day!")
                 break
-        # Print message confirming person added in
-        print("Details for {} have been inserted into the database!")
+            # Print message confirming person added in
+            print("Details have been inserted into the database!")
+            self.ticket_sale()
 
     def ticket_sale(self):
         # Calculating revenue
@@ -101,20 +124,3 @@ class Add_person():
         # Adding revenue to total revenue and printing it
         self.total_revenue += revenue
         print("Total revenue so far is £", self.total_revenue)
-
-        self.ticket_price = 3.00
-
-    def flight_choice(self):
-        pass
-        # List countries
-        # User input to select country
-
-    def check_capacity(self):
-        pass
-
-    def add_person(self):
-        pass
-
-    def ticket_sale(self):
-        pass
-

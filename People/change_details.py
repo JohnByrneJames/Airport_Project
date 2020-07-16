@@ -132,7 +132,9 @@ class Change_details():
         self.encrypt_password()
 
     def encrypt_password(self):
+        # Encoding intial variable
         self.staff_password = self.staff_password.encode('utf-8')
+        # Hashing password
         hash_object = hashlib.sha256(self.staff_password)
         self.staff_password_encrypted = hash_object.hexdigest()
 
