@@ -73,7 +73,7 @@ class Change_details(Connection):
         self.staff_name = input("What is your name?\n")
         self.staff_position = input("What is your position?\n")
         # Using initials to create user name
-        self.staff_username = (self.staff_name[0:3]) + (self.staff_position[0])
+        self.staff_username = (self.staff_name[0:3]).upper() + (self.staff_position[0])
         self.password_creator()
 
     def password_creator(self):
@@ -98,6 +98,12 @@ class Change_details(Connection):
         else:
             print("That was not correct, please recreate your password")
             self.password_creator()
+        self.encrypt_password()
+
+    def encrypt_password(self):
+        self.staff_password = self.staff_password.encode('utf-8')
+        hash_object = hashlib.sha256(self.staff_password)
+        self.staff_password_encrypted = hash_object.hexdigest()
 
     def insert_user_details(self):
         # Calling previous method to ensure user details are created
@@ -105,7 +111,7 @@ class Change_details(Connection):
         # Creating SQL query with wild cards to be placeholders
         sql_query = "INSERT INTO Staff(Name, [Position], Username, password)VALUES (?, ?, ?, ?)"
         # Executing query with variables put in.
-        self.cursor.execute(sql_query, self.staff_name, self.staff_position, self.staff_username, self.staff_password)
+        self.cursor.execute(sql_query, self.staff_name, self.staff_position, self.staff_username, str(self.staff_password_encrypted))
         # Commiting query to make sure data has been inputted
         self.cursor.commit()
         # Prinnting success message
