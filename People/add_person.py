@@ -7,7 +7,7 @@ class Add_person(Connection):
     def __init__(self, connection_string):
         # Inheriting connection string from parent class
         super().__init__(connection_string)
-        # Defining empty variables for later
+        # Defining variables for later
         self.ticket_price = 3.00
         self.total_revenue = 0.00
 
@@ -43,7 +43,9 @@ class Add_person(Connection):
     def check_flight_capacity(self):
         # Get capacity of flight
         sql_query = "Select * FROM Flights WHERE DepartureDate = ? and Destination = ?"
+        # Executing query using placeholder and wildcards
         rows = self.cursor.execute(sql_query, self.selected_departure_date, self.selected_country)
+        # Printing out rows and creating variables from data fetched from table
         for row in rows:
             self.FlightID = row.FlightID
             self.flight_capacity = row.PassengerLimit

@@ -70,10 +70,10 @@ class Change_details(Connection):
 
     def user_creation(self):
         # Take details on staff name
-        self.staff_name = input("What is your full name?\n")
+        self.staff_name = input("What is your name?\n")
         self.staff_position = input("What is your position?\n")
         # Using initials to create user name
-        self.staff_username = (self.staff_name[0:4]) + (self.staff_position[0])
+        self.staff_username = (self.staff_name[0:3]) + (self.staff_position[0])
         self.password_creator()
 
     def password_creator(self):
@@ -92,6 +92,7 @@ class Change_details(Connection):
             print("Error")
         # Using if loop to check password is same when retyped.
         staff_password_check = input("Enter your password again\n")
+        # If loop to verify password using double entry
         if staff_password_check == self.staff_password:
             print("Your password has been set, make sure to remember it")
         else:
@@ -99,7 +100,16 @@ class Change_details(Connection):
             self.password_creator()
 
     def insert_user_details(self):
-
+        # Calling previous method to ensure user details are created
+        self.user_creation()
+        # Creating SQL query with wild cards to be placeholders
+        sql_query = "INSERT INTO Staff(Name, [Position], Username, password)VALUES (?, ?, ?, ?)"
+        # Executing query with variables put in.
+        self.cursor.execute(sql_query, self.staff_name, self.staff_position, self.staff_username, self.staff_password)
+        # Commiting query to make sure data has been inputted
+        self.cursor.commit()
+        # Prinnting success message
+        print("Your user details have successfully been inputted")
 
 # Iteration 2
 # Get user input for what person to change booking for Done

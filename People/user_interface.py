@@ -4,6 +4,7 @@
 
 class User_interface():
 
+    # Intialising class and calling visual method, so it is always called
     def __init__(self):
         self.user_interface_visual()
 
@@ -14,6 +15,7 @@ class User_interface():
 
 
     def intial_input(self):
+        # # User input and if loop to create smooth user interface, this specifies initial input
         user_input = input("Enter C for customer programs or S for staff programs\n")
         if user_input.upper() == "S":
             self.staff_greetings()
@@ -24,6 +26,7 @@ class User_interface():
             self.intial_input()
 
     def staff_greetings(self):
+        # User input and if loop to create smooth user interface, this specifies staff queries
         print("Available staff member programs are:")
         user_input = int(input("1. Creating flight details\n2. Changing existing flight details\n3. Adding a passenger to a flight\n4. Generate a flight attendees list \n5. Create a password and username\n"))
         if user_input == 1:
@@ -41,9 +44,9 @@ class User_interface():
             self.staff_greetings()
 
     def customer_greetings(self):
+        # User input and if loop to create smooth user interface, this specifies customer queries
         print("Available customer programs are:")
-        user_input = int(input(
-            "1. Book tickets\n2. View current flights\n"))
+        user_input = int(input( "1. Book tickets\n2. View current flights\n"))
         if user_input == 1:
             pass
         elif user_input == 2:
