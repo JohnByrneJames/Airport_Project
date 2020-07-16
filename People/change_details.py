@@ -1,5 +1,6 @@
 #As an airport assistant I want to be able to change flight trip details.
 #If someone wanted to extend their departure date etc. Use a password.
+import hashlib
 
 from connection import Connection
 
@@ -69,13 +70,35 @@ class Change_details(Connection):
 
     def user_creation(self):
         # Take details on staff name
+        self.staff_name = input("What is your full name?\n")
+        self.staff_position = input("What is your position?\n")
+        # Using initials to create user name
+        self.staff_username = (self.staff_name[0:4]) + (self.staff_position[0])
+        self.password_creator()
 
-        # Use intials to create user name
-
+    def password_creator(self):
         # Get user input for password
+        print("A password should be at least 7 characters long\n")
+        # Check password is certain length, using try except loop
+        try:
+            self.staff_password = input("Enter you password here\n")
+            if len(self.staff_password) > 7:
+                pass
+            else:
+                raise Exception("incorrect")
+        except "incorrect":
+            print("Your password is not long enough, make sure it is 7 characters")
+        except:
+            print("Error")
+        # Using if loop to check password is same when retyped.
+        staff_password_check = input("Enter your password again\n")
+        if staff_password_check == self.staff_password:
+            print("Your password has been set, make sure to remember it")
+        else:
+            print("That was not correct, please recreate your password")
+            self.password_creator()
 
-        # Check password is certain length
-        pass
+    def insert_user_details(self):
 
 
 # Iteration 2

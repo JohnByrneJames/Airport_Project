@@ -72,19 +72,21 @@ class Add_person(Connection):
 
     def add_person(self):
         # Age limiter - baby age means no seat
-        # Find out how many tickets are being bough
+        # Find out how many tickets are being bought
         self.buying_tickets = int(input("How many people are you buying tickets for?\n"))
         # Making sure that not too many tickets are sold
         if self.buying_tickets > self.spaces_remaining:
             pass
         else:
             print("There is only {} spaces left, so {} tickets cannot be purchased.". format(self.spaces_remaining, self.buying_tickets))
-
         # Input data into booking details page,using while loop to allow multiple record entry
         while True:
             user_input = ("Would you like to add more booking details. Y or N")
             if user_input.upper() == "Y":
-                # Enter record
+                # Call sohaib user story to insert customer details
+                # sql_query = ("")
+                # self.cursor.execute(sql_query, )
+                # self.cursor.commit()
                 pass
             elif user_input.upper() == "N":
                 break
