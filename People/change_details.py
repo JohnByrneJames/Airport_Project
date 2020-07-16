@@ -1,10 +1,12 @@
 #As an airport assistant I want to be able to change flight trip details.
 #If someone wanted to extend their departure date etc. Use a password.
+import hashlib
 
 from connection import Connection
 
 class Change_details(Connection):
 
+    # Initialising class
     def __init__(self, connection_string):
         # Inheriting connection string from parent class
         super().__init__(connection_string)
@@ -18,22 +20,25 @@ class Change_details(Connection):
         # Excecuting query and printing result
         rows = self.cursor.execute(sql_query)
         for row in rows:
-            print("Your current departure date is: ", row.DepartureDate, "\nYour destination is: ", row.Destination)
+            print("The current departure date is: ", row.DepartureDate, "\nThe destination is: ", row.Destination)
             self.current_departure_date = row.DepartureDate
             self.destination = row.Destination
+            self.current_flight = row.FlightID
 
     # Method to get possible flight options
     def show_flight_options(self):
         # SQl query using current booking and desination to filter results
-        sql_query = ('SELECT * FROM BookingDetails BD LEFT JOIN Flights F ON BD.FlightID = F.FlightID WHERE F.Destination = \'' + self.destination + '\' and BD.TicketID != ' + self.current_booking)
+        sql_query = ('SELECT DISTINCT DepartureDate FROM BookingDetails BD LEFT JOIN Flights F ON BD.FlightID = F.FlightID WHERE F.Destination = \'' + self.destination + '\' and F.FlightID != ' + str(self.current_flight))
         # Executing query and printing result
         rows = self.cursor.execute(sql_query)
-        for row in rows:
-            # Printing flights available or letting user no of availability
-            if row[0] is None:
-                print("No alternative flights sorry")
-            else:
-                print("Which departure date would you like to change to?")
+        # Printing flights available or letting user know of availability
+        if rows.rowcount == 0:
+            print("No alternative flights sorry")
+            # Using return to end function
+            return 0
+        else:
+            print("Which departure date would you like to change to?")
+            for row in rows:
                 print("Possible departure date of:", row.DepartureDate)
 
     # Get flight ID to change, for where departure date is x
@@ -65,14 +70,52 @@ class Change_details(Connection):
 
     def user_creation(self):
         # Take details on staff name
+        self.staff_name = input("What is your name?\n")
+        self.staff_position = input("What is your position?\n")
+        # Using initials to create user name
+        self.staff_username = (self.staff_name[0:3]).upper() + (self.staff_position[0])
+        self.password_creator()
 
-        # Use intials to create user name
-
+    def password_creator(self):
         # Get user input for password
+        print("A password should be at least 7 characters long\n")
+        # Check password is certain length, using try except loop
+        try:
+            self.staff_password = input("Enter you password here\n")
+            if len(self.staff_password) > 7:
+                pass
+            else:
+                raise Exception("incorrect")
+        except "incorrect":
+            print("Your password is not long enough, make sure it is 7 characters")
+        except:
+            print("Error")
+        # Using if loop to check password is same when retyped.
+        staff_password_check = input("Enter your password again\n")
+        # If loop to verify password using double entry
+        if staff_password_check == self.staff_password:
+            print("Your password has been set, make sure to remember it")
+        else:
+            print("That was not correct, please recreate your password")
+            self.password_creator()
+        self.encrypt_password()
 
-        # Check password is certain length
-        pass
+    def encrypt_password(self):
+        self.staff_password = self.staff_password.encode('utf-8')
+        hash_object = hashlib.sha256(self.staff_password)
+        self.staff_password_encrypted = hash_object.hexdigest()
 
+    def insert_user_details(self):
+        # Calling previous method to ensure user details are created
+        self.user_creation()
+        # Creating SQL query with wild cards to be placeholders
+        sql_query = "INSERT INTO Staff(Name, [Position], Username, password)VALUES (?, ?, ?, ?)"
+        # Executing query with variables put in.
+        self.cursor.execute(sql_query, self.staff_name, self.staff_position, self.staff_username, str(self.staff_password_encrypted))
+        # Commiting query to make sure data has been inputted
+        self.cursor.commit()
+        # Prinnting success message
+        print("Your user details have successfully been inputted")
 
 # Iteration 2
 # Get user input for what person to change booking for Done
