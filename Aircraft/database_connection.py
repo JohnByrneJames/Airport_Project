@@ -47,5 +47,4 @@ class DatabaseConnector:
             return "There was an error that occurred during the connection attempt..."
         else:
             # Return the connection, the cursor is a control structure
-            cursor = connection.cursor()
-            return cursor
+            return connection.cursor()

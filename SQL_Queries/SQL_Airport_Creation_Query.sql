@@ -41,11 +41,14 @@ CREATE TABLE [Flights] (
   [FlightID] Int IDENTITY NOT NULL,
   [Destination] VarChar(200) NOT NULL,
   [DepartureDate] Date NOT NULL,
-  [DepartureTime] DateTime,
+  [DepartureTime] Time,
   [FlightDuration] Int NOT NULL,
   [PassengerLimit] Int NOT NULL,
   PRIMARY KEY ([FlightID])
 );
+
+ALTER TABLE Flights
+ALTER COLUMN DepartureTime Time;
 
 DROP TABLE Flights
 DROP TABLE Staff
@@ -66,3 +69,11 @@ SELECT * FROM Customers
 SELECT * FROM Flights
 SELECT * FROM Staff
 SELECT * FROM BookingDetails
+
+SP_HELP Staff
+
+INSERT INTO Staff(Staff.Name, Staff.Position, Staff.Username, Staff.Password)
+VALUES('John', 'Crew-Member', 'J970', '123');
+
+INSERT INTO Flights(Destination, DepartureDate, DepartureTime, FlightDuration, PassengerLimit)
+VALUES('Boston', '2020-03-29', '13:00:00', 660, 500)
