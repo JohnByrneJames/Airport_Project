@@ -1,17 +1,77 @@
 from Database_Connection.database_connection import DatabaseConnector
 import os
+import datetime as dt
 
 database_link = DatabaseConnector("databases.spartaglobal.academy", "JMS_AirportDatabase",
                                   os.environ.get("db_username"),
                                   os.environ.get("db_password"))  # create instance with credentials
 cursor = database_link.establish_connection()  # Use instance to establish connection
 
+# minutes = 510
+# minutes_remaining = minutes % 60
+# hours = minutes // 60
+# print(str(hours) + " Hours " + str(minutes_remaining) + " Minutes")
 
-sql = 'SELECT * FROM Staff'
-rows = cursor.execute(sql)
 
-for row in rows:
-    print(row)
+# flight_details = ""
+# flight_passengers = ""
+# flight_id = ""
+#
+sql = "SELECT * FROM Flights WHERE FlightID LIKE ?"
+rows = cursor.execute(sql, 7)
+date_combo = ""
+
+if rows.rowcount == 0:
+    print("This flight Id doesnt exist")
+else:
+    for row in rows:
+        flight_id = (str(row.FlightID) + "-" + row.Destination[:3].upper() + "0" +
+                     str(row.DepartureDate.day))
+        flight_details = (
+                (str(row.FlightID) + "-" + row.Destination[:3].upper() + "0" + str(row.DepartureDate.day)) +
+                " destined for " + row.Destination + " on " + str(row.DepartureDate.day) + " "
+                + str(row.DepartureDate.strftime('%B')) + " " + str(row.DepartureDate.year) + " at "
+                + str(row.DepartureTime.strftime('%I:%M %p')) + " travelling to " + row.Destination +
+                " with an expected flight time of ")
+
+        date_combo = dt.datetime.combine(row.DepartureDate, row.DepartureTime)
+        # Else create new one (Flight ID, Destination [first 3 letters],0 + departureTime[hour])
+
+print(date_combo)
+
+# sql = "SELECT * FROM BookingDetails WHERE FlightID = ?"
+# rows = cursor.execute(sql, 7)
+#
+# print()
+#
+# counter = 1
+#
+# if rows.rowcount == 0:
+#     print("There are currently no Passengers on this flight")
+# else:
+#     for row in rows:
+#         flight_passengers += ("[" + str(counter) + "]: " + row.FirstName + " " + row.LastName + " | Passport Number : "
+#                               + row.PassportNum + "\n")
+#         counter += 1
+#
+#
+# # Get date
+# now = dt.datetime.now()  # current date and time
+#
+# # Get suffix of day
+# if 4 <= now.day <= 20 or 24 <= now.day <= 30:
+#     suffix = "th"
+# else:
+#     suffix = ["st", "nd", "rd"][now.day % 10 - 1]
+#
+# # Construct timestamp
+# d = now.strftime("Added on the %d" + suffix + " %B %Y, at %I:%M %p")
+#
+# with open("Generated_Manifests/" + flight_id + ".txt", "w") as file:
+#     file.write("Flight Manifest for Flight " + str(flight_id) + "\n\n" + flight_details + "\n\n" +
+#                "Passengers on This Flight: \n\n" + flight_passengers + "\n\n" +
+#                str(d))
+
 
 
 # def password_test():

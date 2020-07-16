@@ -147,7 +147,7 @@ class FlightFrontEnd(FlightBackEnd):
     def __user_interface(self):
         print("\nWelcome! What would you like to do")
         help_message = "\nCreate a new flight [c]\nView all current flights [f]\nRecall Help dialog [h]" \
-                       "\nExit at any time with [e]:"
+                       "\nGenerate flight attendee List [g]\nExit at any time with [e]:"
         print(help_message)
         exit_code_entered = False  # Boolean that handles whether or not the user has exited the loop
         while not exit_code_entered:
@@ -172,7 +172,12 @@ class FlightFrontEnd(FlightBackEnd):
                 else:  # Returns false the flight information couldn't be loaded
                     print("\nSorry! an error occurred, restarting interface...")
                     continue
-
+            elif users_input.lower() == "g":
+                if self.__generate_flight_attendees_list():  # Attempt to create text file.
+                    continue
+                else:
+                    print("\nSorry! an error occurred, restarting interface...")  # If returns False tell user
+                    continue
             elif users_input.lower() == "e":
                 print("\nExiting System...")
                 exit_code_entered = True  # Change exit code to True as 'e' was entered, E.G (will break while loop)
@@ -183,8 +188,17 @@ class FlightFrontEnd(FlightBackEnd):
         # Later ( Assign staff to flight - List of available staff and assign them)
 
     def __generate_flight_attendees_list(self):
+        # ask for which flight they want to generate list of attendees
+        flight_id = input("These will load on exit.\nWhat flight do you want to generate a list of attendees for [Please enter ID: e.g. 1] ?  ")
+        if self.check_if_exit(flight_id):  # Allows exiting of program at any time with 'e'
+            return False
 
-        pass
+        if self.generate_attendees_list(flight_id, self.__cursor):  # Returns true if this
+            return True
+            # If this returns false then the flight was not valid or an error occurred
+            # if this returns True the flight has been found and list generated.
+        else:
+            return False
 
     @staticmethod
     def check_if_exit(user_input):
