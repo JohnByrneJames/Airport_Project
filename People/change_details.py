@@ -8,7 +8,7 @@ class Change_details(Connection):
 
     # Initialising class
     def __init__(self, connection_string):
-        # Inherting connection string from parent class
+        # Inheriting connection string from parent class
         super().__init__(connection_string)
         # Use preset variable with person from list
         self.current_booking = input("What TicketID would you like to work with?")

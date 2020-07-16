@@ -1,7 +1,9 @@
 from connection import Connection
+
 from datetime import *
 
 # Inheriting the connection class to enable connection
+
 class Add_person(Connection):
 
     def __init__(self, connection_string):
@@ -101,3 +103,20 @@ class Add_person(Connection):
         # Adding revenue to total revenue and printing it
         self.total_revenue += revenue
         print("Total revenue so far is £", self.total_revenue)
+
+        self.ticket_price = 3.00
+
+    def flight_choice(self):
+        pass
+        # List countries
+        # User input to select country
+
+    def check_capacity(self):
+        pass
+
+    def add_person(self):
+        pass
+
+    def ticket_sale(self):
+        pass
+
