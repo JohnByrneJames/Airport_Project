@@ -12,6 +12,8 @@ cursor = database_link.establish_connection()  # Use instance to establish conne
 # hours = minutes // 60
 # print(str(hours) + " Hours " + str(minutes_remaining) + " Minutes")
 
+sql = 'SELECT * FROM Staff'
+rows = cursor.execute(sql)
 
 # flight_details = ""
 # flight_passengers = ""
@@ -73,7 +75,6 @@ print(date_combo)
 #                str(d))
 
 
-
 # def password_test():
 #     user_pass = input("password")
 #     encoded = user_pass.encode("utf-8")
@@ -89,7 +90,7 @@ print(date_combo)
 #     # in order to prevent dictionary attacks and rainbow table attacks.
 #     salt = uuid.uuid4().hex
 #     return hashlib.sha256(salt.encode() + password.encode()).hexdigest() + ':' + salt
-#
+
 # def check_password(hashed_password, user_password):
 #     password, salt = hashed_password.split(':')
 #     return password == hashlib.sha256(salt.encode() + user_password.encode()).hexdigest()
