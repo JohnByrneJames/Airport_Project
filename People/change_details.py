@@ -4,6 +4,18 @@ import hashlib
 
 
 class Change_details():
+    # Predefining attributes
+    current_departure_date = None
+    destination = None
+    current_flight = None
+    new_departure_time = None
+    new_departure_date = None
+    flightid = None
+    staff_name = None
+    staff_position = None
+    staff_username = None
+    staff_password = None
+    staff_password_encrypted = None
 
     # Initialising class
     def __init__(self, cursor):
@@ -12,16 +24,12 @@ class Change_details():
         # Use preset variable with person from list
         self.current_booking = input("What TicketID would you like to work with?")
 
-    # Method fetching all current bookings
-
-
     # Method connecting booking details to flights
     def fetch_current_flight_details(self):
         # Fetching current flight details of customer based on Ticket ID
-        sql_query = (
-                    'SELECT * FROM BookingDetails BD INNER JOIN Flights F ON BD.FlightID = F.FlightID WHERE BD.TicketID =' + self.current_booking)
+        sql_query = ('SELECT * FROM BookingDetails BD INNER JOIN Flights F ON BD.FlightID = F.FlightID WHERE BD.TicketID = ?')
         # Executing query and printing result
-        rows = self.cursor.execute(sql_query)
+        rows = self.cursor.execute(sql_query, self.current_booking)
         try:
             if rows.rowcount == 0:
                 raise ValueError
@@ -40,10 +48,9 @@ class Change_details():
     def show_flight_options_date(self):
         self.fetch_current_flight_details()
         # SQl query using current booking and desination to filter results
-        sql_query = (
-                    'SELECT DISTINCT DepartureDate FROM BookingDetails BD LEFT JOIN Flights F ON BD.FlightID = F.FlightID WHERE F.Destination = \'' + self.destination + '\' and F.FlightID != ' + str(self.current_flight))
+        sql_query = ("SELECT DISTINCT DepartureDate FROM BookingDetails BD LEFT JOIN Flights F ON BD.FlightID = F.FlightID WHERE F.Destination = ? and F.FlightID != ?")
         # Executing query and printing result
-        rows = self.cursor.execute(sql_query)
+        rows = self.cursor.execute(sql_query, self.destination, self.current_flight)
         # Printing flights available or letting user know of availability
         if rows.rowcount == 0:
             print("No alternative flights sorry")
@@ -59,9 +66,9 @@ class Change_details():
     def show_flight_options_time(self):
          self.show_flight_options_date()
          # SQl query using current booking and destination to filter results
-         sql_query = ('SELECT * FROM BookingDetails BD LEFT JOIN Flights F ON BD.FlightID = F.FlightID WHERE F.Destination = \'' + self.destination + '\' and F.FlightID != ' + str(self.current_flight) + 'and F.DepartureDate = \'' + self.new_departure_date + "'")
+         sql_query = ("SELECT * FROM BookingDetails BD LEFT JOIN Flights F ON BD.FlightID = F.FlightID WHERE F.Destination = and F.FlightID != and F.DepartureDate = ?")
          # Executing query and printing result
-         rows = self.cursor.execute(sql_query)
+         rows = self.cursor.execute(sql_query, self.destination, self.current_flight, self.new_departure_date)
          # Printing flights available or letting user know of availability
          if rows.rowcount == 0:
              print("No alternative flights sorry")
