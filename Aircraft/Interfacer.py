@@ -1,4 +1,4 @@
-from flight_interface import FlightFrontEnd
+from Aircraft.flight_interface import FlightFrontEnd
 from People.add_person import Add_person
 from People.create_staff_user import CreateStaffUser
 

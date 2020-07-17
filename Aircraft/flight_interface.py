@@ -1,4 +1,4 @@
-from flight_algorithms import FlightBackEnd
+from Aircraft.flight_algorithms import FlightBackEnd
 from string import ascii_letters, digits  # Check for special characters
 from People.change_details import Change_details
 
