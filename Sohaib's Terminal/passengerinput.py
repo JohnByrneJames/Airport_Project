@@ -33,7 +33,7 @@ class Passengers():
             # Try loop making sure format is correct
             try:
                 # Raise value error if condition met
-                if datetime.strptime(self.dateofbirth_input, '%Y-%m-%d'):
+                if self.customer_dateofbirth != datetime.strptime(self.customer_dateofbirth, "%Y-%m-%d").strftime('%Y-%m-%d'):
                     raise ValueError
             # Defining what value error does
             except ValueError:
@@ -150,7 +150,7 @@ class Passengers():
             # Try loop making sure format is correct
             try:
                 # Raise value error if condition met
-                if datetime.strptime(self.dateofbirth_input, '%Y-%m-%d'):
+                if self.dateofbirth_input != datetime.strptime(self.dateofbirth_input, "%Y-%m-%d").strftime('%Y-%m-%d'):
                     raise ValueError
             # Defining what value error does
             except ValueError:

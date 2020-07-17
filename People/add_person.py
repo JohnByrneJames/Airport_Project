@@ -12,7 +12,7 @@ class Add_person():
         self.cursor = cursor
         # Defining variables for later
         self.ticket_price = 3.00
-        self.total_revenue = 0.00
+        self.total_revenue = 2.00
 
     def flight_choice_country(self):
         # List countries
@@ -108,7 +108,9 @@ class Add_person():
         while True:
             user_input = input("Would you like to add booking details. Y or N\n")
             if user_input.upper() == "Y":
+                # Creating class object for class of input methods
                 obj1 = Passengers(self.cursor)
+                # Calling input methods to insert customer data
                 obj1.customer_input()
                 obj1.choice_input(self.selected_country, self.FlightID)
             elif user_input.upper() == "N":
@@ -120,7 +122,7 @@ class Add_person():
 
     def ticket_sale(self):
         # Calculating revenue
-        revenue = self.buying_tickets * self.ticket_price
-        # Adding revenue to total revenue and printing it
-        self.total_revenue += revenue
-        print("Total revenue so far is £", self.total_revenue)
+        # revenue = self.buying_tickets * self.ticket_price
+        # # Adding revenue to total revenue and printing it
+        # self.total_revenue += revenue
+        print("Total revenue so far is £", round(float(self.total_revenue), 3))
