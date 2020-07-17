@@ -1,11 +1,8 @@
 from datetime import *
-import sys
-sys.path.insert(1, "C:/Users/Maximilian Palmer/PycharmProjects/Airport_project/Sohaib's Terminal")
-from passengerinput import *
-
-# Inheriting the connection class to enable connection
+from Terminal.passengerinput import Passengers
 
 class Add_person():
+    selected_country = None
 
     def __init__(self, cursor):
         # Creating cursor class object
@@ -23,11 +20,12 @@ class Add_person():
         # Repeating for loop to append
         for row in rows:
             countries.append(row.Destination)
-        print(countries)
+        print("\n" + str(countries))
         bool = True
         while bool == True:
             # User input to select country
-            self.selected_country = input("Select a country from the above list, and enter below. Please keep the same formatting.\n ")
+            self.selected_country = input("\nSelect a country from the above list, and enter below. "
+                                          "Please keep the same formatting.\n")
             try:
                 if self.selected_country not in countries:
                     raise ValueError
@@ -48,11 +46,12 @@ class Add_person():
         for row in rows:
             x = row.DepartureDate
             dates.append(x.strftime("%Y/%m/%d"))
-        print(dates)
+        print("\n" + str(dates))
         bool = True
         while bool == True:
             # User input to select departure date
-            self.selected_departure_date = input("Select a departure date from the above list, and enter below. Please keep the same formatting.\n ")
+            self.selected_departure_date = input("\nSelect a departure date from the above list, and enter below. "
+                                                 "Please keep the same formatting.")
             try:
                 if str(self.selected_departure_date) not in dates:
                     raise ValueError
@@ -97,16 +96,16 @@ class Add_person():
     def add_person(self):
         # Age limiter - baby age means no seat
         # Find out how many tickets are being bought
-        self.buying_tickets = int(input("How many people are you buying tickets for?\n"))
+        self.buying_tickets = int(input("\nHow many people are you buying tickets for?\n"))
         # Making sure that not too many tickets are sold
         # Limit to 5 for looping reasons?
         if self.buying_tickets > int(self.spaces_remaining):
-            print("There is only {} spaces left, so {} tickets cannot be purchased.".format(self.spaces_remaining,                                                                              self.buying_tickets))
+            print("\nThere is only {} spaces left, so {} tickets cannot be purchased.".format(self.spaces_remaining,self.buying_tickets))
         else:
-            print("There is enough spaces")
+            print("\nThere is enough spaces")
         # Input data into booking details page,using while loop to allow multiple record entry
         while True:
-            user_input = input("Would you like to add booking details. Y or N\n")
+            user_input = input("\nWould you like to add booking details. Y or N\n")
             if user_input.upper() == "Y":
                 # Creating class object for class of input methods
                 obj1 = Passengers(self.cursor)
@@ -114,10 +113,10 @@ class Add_person():
                 obj1.customer_input()
                 obj1.choice_input(self.selected_country, self.FlightID)
             elif user_input.upper() == "N":
-                print("Thank you for your input, have a great day!")
+                print("\nThank you for your input, have a great day!")
                 break
             # Print message confirming person added in
-            print("Details have been inserted into the database!")
+            print("\nDetails have been inserted into the database!")
             self.ticket_sale()
 
     def ticket_sale(self):
@@ -125,4 +124,4 @@ class Add_person():
         # revenue = self.buying_tickets * self.ticket_price
         # # Adding revenue to total revenue and printing it
         # self.total_revenue += revenue
-        print("Total revenue so far is £", round(float(self.total_revenue), 3))
+        print("\nTotal revenue so far is £", round(float(self.total_revenue), 3))
