@@ -1,6 +1,6 @@
 from flight_algorithms import FlightBackEnd
 from string import ascii_letters, digits  # Check for special characters
-
+from People.change_details import Change_details
 
 # User story
 # As an airport assistant, I want to create a flight trip with a specific destination. - John
@@ -147,7 +147,7 @@ class FlightFrontEnd(FlightBackEnd):
     def __user_interface(self):
         print("\nWelcome! What would you like to do")
         help_message = "\nCreate a new flight [c]\nView all current flights [f]\nRecall Help dialog [h]" \
-                       "\nGenerate flight attendee List [g]\nExit at any time with [e]:"
+                       "\nGenerate flight attendee List [g]\nExit at any time with [e]\nChange Flight Date [d]"
         print(help_message)
         exit_code_entered = False  # Boolean that handles whether or not the user has exited the loop
         while not exit_code_entered:
@@ -178,6 +178,11 @@ class FlightFrontEnd(FlightBackEnd):
                 else:
                     print("\nSorry! an error occurred, restarting interface...")  # If returns False tell user
                     continue
+            elif users_input.lower() == "d":
+                # Go to change_details class in People Directory
+                instance = Change_details(self.__cursor)
+                instance.change_flight_details()
+                print("\nGoing back to menu...")
             elif users_input.lower() == "e":
                 print("\nExiting System...")
                 exit_code_entered = True  # Change exit code to True as 'e' was entered, E.G (will break while loop)

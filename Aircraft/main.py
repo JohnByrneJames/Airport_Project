@@ -1,5 +1,5 @@
 from Database_Connection.database_connection import DatabaseConnector
-from flight_interface import FlightFrontEnd
+from Interfacer import Interfacer
 import pyodbc
 import os
 
@@ -20,5 +20,6 @@ try:
 except pyodbc.ProgrammingError:
     exit("Due to a current bug we could not connect, rerun program.")  # end program
 
-user_login = FlightFrontEnd(connection)  # Create users login instance, with previously made connection
-user_login.user_login()  # Attempt login
+# Start Program Flow
+start = Interfacer(connection)
+start.choose_interface()
