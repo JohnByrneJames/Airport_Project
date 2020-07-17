@@ -10,4 +10,4 @@ object.choice_input()
 
 # object.customer_booking_itself()
 
-object2 =
+# object2 =

@@ -6,13 +6,11 @@ database_link = DatabaseConnector("databases.spartaglobal.academy", "JMS_Airport
                                   os.environ.get("db_password"))  # create instance with credentials
 cursor = database_link.establish_connection()  # Use instance to establish connection
 
-
 sql = 'SELECT * FROM Staff'
 rows = cursor.execute(sql)
 
 for row in rows:
     print(row)
-
 
 # def password_test():
 #     user_pass = input("password")
@@ -29,7 +27,7 @@ for row in rows:
 #     # in order to prevent dictionary attacks and rainbow table attacks.
 #     salt = uuid.uuid4().hex
 #     return hashlib.sha256(salt.encode() + password.encode()).hexdigest() + ':' + salt
-#
+
 # def check_password(hashed_password, user_password):
 #     password, salt = hashed_password.split(':')
 #     return password == hashlib.sha256(salt.encode() + user_password.encode()).hexdigest()
