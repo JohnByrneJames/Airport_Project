@@ -3,8 +3,8 @@ from Aircraft.Interfacer import Interfacer
 import pyodbc
 import os
 
-database_link = DatabaseConnector("databases.spartaglobal.academy", "JMS_AirportDatabase", os.environ.get("db_username"),
-                                  os.environ.get("db_password"))  # create instance with credentials
+database_link = DatabaseConnector("databases.spartaglobal.academy", "JMS_AirportDatabase", "SA",
+                                  "Passw0rd2018")  # create instance with credentials
 connection = database_link.establish_connection()  # Use instance to establish connection
 
 # Current ERROR - run 1 = blank output / run 2 = error output / run 3 = successful output
