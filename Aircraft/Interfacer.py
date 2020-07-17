@@ -12,7 +12,10 @@ class Interfacer:
         chosen = True
 
         while chosen:
-            user_input = input("\nWelcome! Are you a staff member [S] \nA customer [C]  \nor Exit [E] ?")
+            user_input = input("\nWelcome! What would you like to do?"
+                               "\nStaff Access Portal [S] "
+                               "\nCustomer Booking System [C] "
+                               "\nExit [E] ?")
 
             if user_input.lower() == "c":
                 self.go_to_customer_interface()
@@ -47,7 +50,7 @@ class Interfacer:
 
     @staticmethod
     def exit_interface():
-        exit("\nThanks for booking with JMS Airlines, see you next time")
+        exit("\nThank you for using with JMS Airlines \nSee you next time!")
 
 
 
