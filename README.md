@@ -2,7 +2,7 @@
 
 #### This is the a project set over the course of 3 days. Using the assigned user-stories we are to complete a program that is capable of carrying out each of their requests, following a definition on done.
 
-### <div align="center" style="font-weight: bolder">The Team</div>
+**The Team**
 
 | Name          | Position  | **X** |
 |---------------|-----------|------|
@@ -11,12 +11,6 @@
 | **Max Palmer**    | _Developer_ | :boom: |
 
 **User Stories**
-
-<style>
-table {
-    width:100%;
-}
-</style>
 
 **The to do list in terms of user stories :**
 - [x] As an airport assistant I want to be able to create passengers with name and passport number, 
@@ -35,6 +29,19 @@ Find the Board [**HERE**](https://trello.com/b/3BQkzYtl/airport-project)
 # <div align="center" style="font-weight: bolder">Entity Relationship Diagram from our Airport Database</div>
 
 ![image info](Images/Airport%20ERD%20-%20ERD%20Diagram.jpeg)
+
+## **Description**
+
+This is an Entity Relationship Relationship, it is the first process in the creation of what is known as a Relational database, an
+extremely common practice among database developers as it allows the tables to be linked via specific relationships which link
+certain values in one to to some in others.
+
+## **Types of Relationships**
+
+There are three main types of relationships:
+* **One-to-Many**
+* **One-to-One**
+* **Many-to-Many**
 
 ___
 
