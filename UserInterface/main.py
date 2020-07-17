@@ -1,5 +1,5 @@
 from Database_Connection.database_connection import DatabaseConnector
-from Aircraft.Interfacer import Interfacer
+from Interfacer import Interfacer
 import pyodbc
 import os
 

@@ -1,6 +1,7 @@
-from Aircraft.flight_interface import FlightFrontEnd
-from People.add_person import Add_person
-from People.create_staff_user import CreateStaffUser
+from flight_interface import FlightFrontEnd
+from add_person import Add_person
+from create_staff_user import CreateStaffUser
+from UserInterface.panda_representation import panda_data
 
 class Interfacer:
     cursor = None
@@ -15,18 +16,21 @@ class Interfacer:
             user_input = input("\nWelcome! What would you like to do?"
                                "\nStaff Access Portal [S] "
                                "\nCustomer Booking System [C] "
+                               "\nView all Current Flights [F]"
                                "\nExit [E] ?")
 
             if user_input.lower() == "c":
                 self.go_to_customer_interface()
             elif user_input.lower() == "s":
                 have_an_account = input("Do you have a Staff account? [Y] [N] ")
-                if have_an_account.lower() == "Y":
+                if have_an_account.lower() == "y":
                     self.go_to_staff_interface()
-                elif have_an_account.lower() == "N":
+                elif have_an_account.lower() == "n":
                     self.create_staff_user()
                 else:
-                    break
+                    continue
+            elif user_input.lower() == "f":
+                self.display_flights_in_panda()
             elif user_input.lower() == "e":
                 self.exit_interface()
             else:
@@ -51,6 +55,11 @@ class Interfacer:
     @staticmethod
     def exit_interface():
         exit("\nThank you for using with JMS Airlines \nSee you next time!")
+
+    def display_flights_in_panda(self):
+        panda_inst = panda_data()
+        panda_inst.sql_query_with_panda()
+
 
 
 

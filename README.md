@@ -41,7 +41,7 @@ certain values in one to to some in others.
 There are three main types of relationships:
 * **One-to-Many**
 * **One-to-One**
-* **Many-to-Many**
+* **Many-to-Many** (Converted to **Conjunction**)
 
 ___
 

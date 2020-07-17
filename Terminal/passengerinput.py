@@ -76,11 +76,11 @@ class Passengers():
         self.flightID = flightID
         # While loop to make sure input is 1,2,3. else it will endlessly loop
         while True:
-            self.user_choice = input("\nWelcome to the personalised Airport user experience. "
+            self.user_choice = int(input("\nWelcome to the personalised Airport user experience. "
                                      "Please select one of the following options:""\n "
                                      "1. Do you want to book a flight for yourself? \n "
                                      "2. Do you want to book a flight for someone else? \n "
-                                     "3. Exit\n")
+                                     "3. Exit\n"))
             # Calling relevant methods depending on user choice
             if self.user_choice == 1:
                 self.customer_booking_itself()

@@ -121,7 +121,7 @@ class Add_person():
 
     def ticket_sale(self):
         # Calculating revenue
-        # revenue = self.buying_tickets * self.ticket_price
-        # # Adding revenue to total revenue and printing it
-        # self.total_revenue += revenue
+        revenue = self.buying_tickets * self.ticket_price
+        # Adding revenue to total revenue and printing it
+        self.total_revenue += revenue
         print("\nTotal revenue so far is £", round(float(self.total_revenue), 3))
