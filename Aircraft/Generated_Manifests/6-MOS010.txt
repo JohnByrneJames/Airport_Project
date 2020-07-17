@@ -1,0 +1,17 @@
+Flight Manifest for Flight 6-MOS010
+
+6-MOS010 destined for Moscow on 10 January 2019 at 09:15 AM
+
+Passengers on This Flight: 
+
+[1]: Theresa May | Passport Number : 123456
+[2]: Ellie Johnson | Passport Number : 123456
+[3]: Eleanor Johnson | Passport Number : 123456
+[4]: Iona Huffman | Passport Number : 762972758
+[5]: Avye Hardin | Passport Number : 836413066
+[6]: Kieran Gomez | Passport Number : 276442072
+[7]: Nissim Vang | Passport Number : 121810900
+[8]: Naomi Mckinney | Passport Number : 134169522
+
+
+Added on 16th July 2020, at 08:57 PM

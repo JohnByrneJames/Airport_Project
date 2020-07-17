@@ -1,0 +1,19 @@
+Flight Manifest for Flight 1-NEW02
+
+1-NEW02 destined for New York on 2 January 2020 at 09:20 PM
+
+Passengers on This Flight: 
+
+[1]: Jeff Smith | Passport Number : 123456
+[2]: Morty Smith | Passport Number : 123457
+[3]: Quentin Daniels | Passport Number : 151774210
+[4]: Steven Mcintyre | Passport Number : 222621031
+[5]: Sawyer Marsh | Passport Number : 436067742
+[6]: Joelle Bender | Passport Number : 841806130
+[7]: Adam Frost | Passport Number : 210339388
+[8]: Conan Conner | Passport Number : 670473016
+[9]: Zane Harrington | Passport Number : 818320549
+[10]: August Gross | Passport Number : 429157154
+
+
+Added on the 16th July 2020, at 06:40 PM

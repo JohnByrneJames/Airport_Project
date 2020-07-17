@@ -1,0 +1,14 @@
+Flight Manifest for Flight 3-PAR010
+
+3-PAR010 destined for Paris on 10 January 2019 at 09:15 AM
+
+Passengers on This Flight: 
+
+[1]: Liam Neeson | Passport Number : 123458
+[2]: Ingrid Rosa | Passport Number : 956704439
+[3]: Arden Newton | Passport Number : 428315652
+[4]: Bruno Bennett | Passport Number : 984173179
+[5]: Bryar Griffith | Passport Number : 224634469
+
+
+Added on the 16th July 2020, at 06:41 PM

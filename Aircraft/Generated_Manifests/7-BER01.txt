@@ -1,0 +1,16 @@
+Flight Manifest for Flight 7-BER01
+
+7-BER01 destined for Berlin on 1 September 2020 at 03:20 PM
+
+Passengers on This Flight: 
+
+[1]: Keefe Bernard | Passport Number : 583885298
+[2]: Bevis Pope | Passport Number : 532857761
+[3]: Myra Faulkner | Passport Number : 061094562
+[4]: Kiayada Barnett | Passport Number : 552639128
+[5]: Kylee Burgess | Passport Number : 262030483
+[6]: Stewart King | Passport Number : 963707935
+[7]: Fredericka Larsen | Passport Number : 206508769
+
+
+Added on 17th July 2020, at 09:50 AM
