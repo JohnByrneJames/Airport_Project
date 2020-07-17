@@ -26,14 +26,14 @@ can sell tickets.
 
 Find the Board [**HERE**](https://trello.com/b/3BQkzYtl/airport-project)
 
-### <div align="center" style="font-weight: bolder">Entity Relationship Diagram from our Airport Database</div>
+# <div align="center" style="font-weight: bolder">Entity Relationship Diagram from our Airport Database</div>
 
 ![image info](Images/Airport%20ERD%20-%20ERD%20Diagram.jpeg)
 
 ___
 
 
-### <div align="center" style="font-weight: bolder">Flow Chart of Airport Program</div>
+# <div align="center" style="font-weight: bolder">Flow Chart of Airport Program</div>
 
 **The project Structure**
 
