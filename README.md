@@ -51,3 +51,5 @@ ___
 **The project Structure**
 
 ![image info](Images/Flow%20Diagram%20of%20Airport%20Program.jpeg)
+
+This shows the flow of the program as it is interacted with by the user.
