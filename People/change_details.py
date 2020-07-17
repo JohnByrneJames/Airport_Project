@@ -83,14 +83,12 @@ class Change_details():
     # Get flight ID to change, for where departure date is x
     def fetch_flightID(self):
         self.show_flight_options_time()
-        departure_date = "'" + self.new_departure_date + "'"
         # Setting query
-        sql_query = ("SELECT FlightID FROM Flights WHERE DepartureDate = " + departure_date)
+        sql_query = ("SELECT FlightID FROM Flights WHERE DepartureDate = ? And DepartureTime = ?")
         # Executing query
-        rows = self.cursor.execute(sql_query)
+        rows = self.cursor.execute(sql_query, self.new_departure_date, self.new_departure_time)
         for row in rows:
             self.flightid = row[0]
-        print(self.flightid)
 
     # Updating booking details table to change flight ID to one with departure date
     def change_flight_details(self):
@@ -103,7 +101,7 @@ class Change_details():
         # Commiting change to SQL
         self.cursor.commit()
         # Print confirmation statement of flight details changing
-        print("The flight has been changed. Your FlightID is now:", self.flightid)
+        print("The flight has been changed. The FlightID is now:", self.flightid)
 
     def user_creation(self):
         # Take details on staff name
