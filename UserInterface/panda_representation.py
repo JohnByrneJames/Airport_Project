@@ -14,11 +14,11 @@ class panda_data:
         connection_string = "DRIVER={ODBC Driver 17 for SQL Server};SERVER=" \
                             + server + ";DATABASE=" + database + \
                             ";UID=" + username + ";PWD=" + password
-        connection_key = pyodbc.connect(connection_string, autocommit = True)
+        connection = pyodbc.connect(connection_string, autocommit = True)
         # object1 = DatabaseConnector(server,  )
         # cursor = object1.establish_connection()
         # sql_query = ("SELECT * FROM Flights"
-        df = pandas.io.sql.read_sql("SELECT * FROM Flights", connection_key)
+        df = pandas.io.sql.read_sql("SELECT * FROM Flights", connection)
         pd.set_option("display.max_rows", None, "display.max_columns", None)
         print(df)
 
