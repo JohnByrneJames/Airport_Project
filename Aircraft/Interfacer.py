@@ -1,5 +1,6 @@
 from flight_interface import FlightFrontEnd
 from People.add_person import Add_person
+from People.create_staff_user import CreateStaffUser
 
 class Interfacer:
     cursor = None
@@ -16,7 +17,13 @@ class Interfacer:
             if user_input.lower() == "c":
                 self.go_to_customer_interface()
             elif user_input.lower() == "s":
-                self.go_to_staff_interface()
+                have_an_account = input("Do you have a Staff account? [Y] [N] ")
+                if have_an_account.lower() == "Y":
+                    self.go_to_staff_interface()
+                elif have_an_account.lower() == "N":
+                    self.create_staff_user()
+                else:
+                    break
             elif user_input.lower() == "e":
                 self.exit_interface()
             else:
@@ -33,6 +40,10 @@ class Interfacer:
         user_login.check_passenger_count()
         user_login.capacity_availability()
         user_login.add_person()
+
+    def create_staff_user(self):
+        creation_inst = CreateStaffUser(self.cursor)
+        creation_inst.insert_user_details()
 
     @staticmethod
     def exit_interface():
