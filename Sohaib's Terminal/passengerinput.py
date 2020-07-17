@@ -169,18 +169,3 @@ class Passengers():
         self.cursor.commit()
         # Printing success message
         print("You have successfully added a passenger to the flight list")
-<<<<<<< HEAD
-=======
-
-# # Extra code
-# sql_query = ("SELECT * FROM Flights")
-# flights = self.cursor.execute(sql_query)
-# countries = []
-#
-# for flight in flights:
-#     destination = (flight.Destination)
-#     print("Your destination is" + destination)
-#     print(flight.DepartureDate)
-#     print(flight.)
-#     # print(flights)
->>>>>>> b3d551dee74bb03d906837d61bdb27b823c9cb3e
