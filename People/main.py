@@ -16,9 +16,9 @@ connection = database_link.establish_connection()
 # Creating class instance
 obj1 = Change_details(connection)
 # obj1.insert_user_details()
-obj1.fetch_current_flight_details()
-obj1.show_flight_options_date()
-obj1.fetch_flightID()
+# obj1.fetch_current_flight_details()
+# obj1.show_flight_options_date()
+# obj1.fetch_flightID()
 obj1.change_flight_details()
 
 
