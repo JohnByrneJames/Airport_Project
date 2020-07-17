@@ -12,6 +12,12 @@
 
 **User Stories**
 
+<style>
+table {
+    width:100%;
+}
+</style>
+
 **The to do list in terms of user stories :**
 - [x] As an airport assistant I want to be able to create passengers with name and passport number, 
 so that I can add them to the flight.
