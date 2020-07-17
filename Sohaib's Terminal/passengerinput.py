@@ -1,4 +1,5 @@
 from Database_Connection.database_connection import DatabaseConnector
+import pandas as pd
 
 from datetime import datetime
 # As an airport assistant, I want to create passengers with name AND passport number, so that I can add them to the flight. - Sohaib Sohail
@@ -16,7 +17,7 @@ class Passengers():
 
     def __init__(self, cursor):
         self.cursor = cursor
-        self.cursor.execute("use JMS_AirportDatabase")
+        # self.cursor.execute("use JMS_AirportDatabase")
 
     def customer_input(self):
 
@@ -75,7 +76,7 @@ class Passengers():
         #     # print(flights)
 
 
-        self.destination_input = (input("What is your preferred destination? Please enter the same value in the table. \n"))
+        # self.destination_input = (input("What is your preferred destination? Please enter the same value in the table. \n"))
 
         self.firstname_input = self.customer_firstname
         self.surname_input = self.customer_surname

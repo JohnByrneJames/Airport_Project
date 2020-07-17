@@ -5,7 +5,9 @@ datalink = DatabaseConnector("databases.spartaglobal.academy", "JMS_AirportDatab
 
 cursor = datalink.establish_connection()
 object = Passengers(cursor)
-# object.customer_input()
-# object.choice_input()
+object.customer_input()
+object.choice_input()
 
-object.customer_booking_itself()
+# object.customer_booking_itself()
+
+object2 =
