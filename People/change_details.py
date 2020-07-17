@@ -66,7 +66,7 @@ class Change_details():
     def show_flight_options_time(self):
          self.show_flight_options_date()
          # SQl query using current booking and destination to filter results
-         sql_query = ("SELECT * FROM BookingDetails BD LEFT JOIN Flights F ON BD.FlightID = F.FlightID WHERE F.Destination = and F.FlightID != and F.DepartureDate = ?")
+         sql_query = ("SELECT Distinct DepartureTime FROM BookingDetails BD LEFT JOIN Flights F ON BD.FlightID = F.FlightID WHERE F.Destination = ? and F.FlightID != ? and F.DepartureDate = ?")
          # Executing query and printing result
          rows = self.cursor.execute(sql_query, self.destination, self.current_flight, self.new_departure_date)
          # Printing flights available or letting user know of availability
@@ -77,8 +77,8 @@ class Change_details():
          else:
             print("Which departure time would you like to change to?")
             for row in rows:
-                print("Possible departure date of:", row.DepartureTime)
-            self.new_departure_time = input("Enter the new departure time here. Use hh/mm formatting.")
+                print("Possible departure time of:", row.DepartureTime)
+            self.new_departure_time = input("Enter the new departure time here. Use hh/mm/ss formatting.")
 
     # Get flight ID to change, for where departure date is x
     def fetch_flightID(self):
@@ -97,14 +97,13 @@ class Change_details():
         # Calling previous method to get flight ID
         self.fetch_flightID()
         # Setting query
-        sql_query = ("UPDATE BookingDetails SET FlightID =" + ("'" + str(self.flightid) + "'")) + "WHERE TicketID =" + (
-                    "'" + str(self.current_booking) + "'")
+        sql_query = ("UPDATE BookingDetails SET FlightID = ? WHERE TicketID = ?")
         # Executing query
-        self.cursor.execute(sql_query)
+        self.cursor.execute(sql_query, str(self.flightid), str(self.current_booking))
         # Commiting change to SQL
         self.cursor.commit()
         # Print confirmation statement of flight details changing
-        print("Your flight has been changed. Your FlightID is now:", self.flightid)
+        print("The flight has been changed. Your FlightID is now:", self.flightid)
 
     def user_creation(self):
         # Take details on staff name
